@@ -1,58 +1,290 @@
-<!doctype html>
-<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
-<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on https://github.com/jonrohan -->
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<Meta name="Keywords" Content="品牌,品牌聚合,品牌汇聚,品牌排名,品牌价值,品牌价值排名,品牌聚合,广告,新兴品牌,品牌分析,brand,ranking,brands,brand rank">
+<Meta name="Description" Content="对中国品牌进行全方面的评述与分析，特别是对新兴品牌的分析与推广">
+<Meta name="Robots" Content="All">
+<Meta name="Author" Content="Wilson,wangjinlong98889@hotmail.com">
 
-  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen">
-  <link rel="stylesheet" href="stylesheets/github-dark.css">
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script type="text/javascript" src="javascripts/script.js"></script>
-
-  <title>Welcome</title>
-  <meta name="description" content="tagline">
-
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-<style>
-video {
-    max-width: 100%;
-    height: auto;
-}
+<title>品牌聚合网，汇聚中国- Brands</title>
+<style type="text/css">
+* { margin:0; padding:0; }
+body { background:#FFF; color:#333; font:12px/1.6em Helvetica, Arial, sans-serif; }
+h1, h2, h3, h4, h5, h6 { font-size:1em; }
+a.f {margin:0;padding:0; text-decoration:none; }
+a.f:hover {position: relative;}
+a.f:hover img{width: 9%;}
+/*a:hover { text-decoration:underline; }*/
+ul, li { list-style:none; }
+fieldset, img { border:none; }
+legend { display:none; }
+em, strong, cite, th { font-style:normal; font-weight:normal; }
+input, textarea, select, button { font:12px Helvetica, Arial, sans-serif; }
+table { border-collapse:collapse; }
+html { overflow:-moz-scrollbars-vertical; } /*/*/
+/* iBanner style */
+/*#ibanner { position:relative; width:650px; height:250px; overflow:hidden; margin:0px 0 20px 300px; }//up ringth down left*/
+#ibanner { position:absolute; width:43%; height:244px; overflow:hidden; top:165px; right:0px;  bottom:20px;left: 25%; } 
+#ibanner_pic {}
+#ibanner_pic a.slide { position:absolute; top:0px; display:block; width:650px; height:250px; overflow:hidden; }
+#ibanner_btn { position:absolute; z-index:9999; right:5px; bottom:5px; font-weight:700; font-family:Arial; }//z-index一直显示在最前面覆盖。
+#ibanner_btn span { display:block; float:left; margin-left:4px; padding: 5px; background:#000; cursor:pointer; }
+#ibanner_btn .normal { height:20px; margin-top:8px; border:1px solid #999; color:#999; font-size:16px; line-height:20px; }
+#ibanner_btn .current { height:28px; border:2px solid #FF5300; color:#FF5300; font-size:28px; line-height:28px; }
 </style>
+
+<script type="text/javascript">
+
+function $(id) { return document.getElementById(id); }
+function addLoadEvent(func)//addLoadEvent(addBtn);addLoadEvent(iBanner);
+{
+   var oldonload = window.onload;//window.onload避免文档加载完成后才能够去执行，否则可能导致无法获取对象的情况
+   if (typeof window.onload != 'function')
+    {
+     window.onload = func;
+    } 
+   else {
+         window.onload = function(){oldonload();func();}
+        }
+}
+
+function addBtn() {
+   if(!$('ibanner')||!$('ibanner_pic')) return;
+   var picList = $('ibanner_pic').getElementsByTagName('a');
+   if(picList.length==0) return;// http://www.codefans.net
+   var btnBox = document.createElement('div');
+ //document.createElement()是在对象中创建一个对象，要与appendChild() 或 insertBefore()方法联合使用。其中，appendChild() 方法在节点的子节点列表末添加新的子节点，insertBefore() 方法在节点的子节点列表任意位置插入新的节点。
+   btnBox.setAttribute('id','ibanner_btn');
+   var SpanBox ='';
+   for(var i=1; i<=picList.length; i++ ) 
+   {
+      var spanList = '<span class="normal">'+i+'</span>';
+      SpanBox += spanList;//得到图片标号
+   }
+   btnBox.innerHTML = SpanBox;
+   $('ibanner').appendChild(btnBox);
+   $('ibanner_btn').getElementsByTagName('span')[0].className = 'current';//第一个的标号class为current，所以是变大的
+   for (var m=0; m<picList.length; m++)
+   {
+      var attributeValue = 'picLi_'+m
+      picList[m].setAttribute('id',attributeValue);//对每个图片进行标号,picList = $('ibanner_pic').getElementsByTagName('a');
+    }
+}
+
+function moveElement(elementID,final_x,final_y,interval) //moveElement('picLi_0',0,0,10)一个动画实现的函数。参数：elementID = 动画元素的ID final_x = 动画结束x坐标 final_y = 动画结束y坐标 interval = 动画间隔时间
+{
+  if (!document.getElementById) return false;
+  if (!document.getElementById(elementID)) return false;
+  var elem = document.getElementById(elementID);
+  if (elem.movement)// 如果计时器已声明，就是动画已经开始递归执行，则清除之前的计时器
+   {
+     clearTimeout(elem.movement);
+   }
+if (!elem.style.left) 
+   {
+      elem.style.left = "0px";
+   }
+if (!elem.style.top) 
+   {
+    elem.style.top = "0px";
+   }
+  var xpos = parseInt(elem.style.left);//parseInt(string, radix) 函数可解析一个字符串，并返回一个整数,JavaScript中的parseInt()简言之，就是将字符串型变量转换成整型int
+  var ypos = parseInt(elem.style.top);
+  if (xpos == final_x && ypos == final_y) // 如果已到达指定结束位置，停止执行
+  {
+   moveing = false;
+   return true;
+  }
+  if (xpos < final_x) // 没有到达指定位置时，获取移动的x速度，10分之一并取整
+  {
+    var dist = Math.ceil((final_x - xpos)/10);  
+	//ceil()方法可对一个数进行上舍入,返回值大于等于 x，并且与它最接近的整数。
+    xpos = xpos + dist;
+  }
+  if (xpos > final_x) 
+  {
+   var dist = Math.ceil((xpos - final_x)/10);
+   xpos = xpos - dist;
+  }
+   if (ypos < final_y) 
+   {
+    var dist = Math.ceil((final_y - ypos)/10);
+    ypos = ypos + dist;
+    }
+    if (ypos > final_y) 
+	{
+      var dist = Math.ceil((ypos - final_y)/10);
+      ypos = ypos - dist;
+     }
+   elem.style.left = xpos + "px";// 移动到xpos px
+   elem.style.top = ypos + "px";
+    var repeat = "moveElement('"+elementID+"',"+final_x+","+final_y+","+interval+")";// 递归函数
+   elem.movement = setTimeout(repeat,interval);//setTimeout(code,millisec)方法用于在指定的毫秒数后调用函数或计算表达式,code	必需。要调用的函数后要执行的 JavaScript 代码串。millisec	必需。在执行代码前需等待的毫秒数，setInterval('autoBanner()', 5000);
+}
+
+function classNormal()
+{
+  var btnList = $('ibanner_btn').getElementsByTagName('span');
+  for (var i=0; i<btnList.length; i++)
+  {
+    btnList[i].className='normal';
+  }
+}
+
+function picZ() 
+{
+   var picList = $('ibanner_pic').getElementsByTagName('a');
+   for (var i=0; i<picList.length; i++)
+   {
+       picList[i].style.zIndex='1';
+   }
+}
+
+var autoKey = false;
+function iBanner() 
+{
+  if(!$('ibanner')||!$('ibanner_pic')||!$('ibanner_btn')) return;
+  $('ibanner').onmouseover = function(){autoKey = true};
+  $('ibanner').onmouseout = function(){autoKey = false};
+
+  var btnList = $('ibanner_btn').getElementsByTagName('span');
+  var picList = $('ibanner_pic').getElementsByTagName('a');
+  if (picList.length==1) return;
+  picList[0].style.zIndex='2';
+  for (var m=0; m<btnList.length; m++)
+  {
+     btnList[m].onmouseover = function(){
+		                                  for(var n=0; n<btnList.length; n++) 
+	                                       {
+											  if (btnList[n].className == 'current') 
+											     {
+													 var currentNum = n;
+												 }
+                                           }
+                                          classNormal();//利用 btnList[i].className='normal';将button的class设置为normal
+                                          picZ();//利用picList[i].style.zIndex='1';将图片z-index设置为1，将其覆盖
+                                          this.className='current';
+                                          picList[currentNum].style.zIndex='2';
+                                          var z = this.childNodes[0].nodeValue-1;
+                                          picList[z].style.zIndex='3';
+                                          if (currentNum!=z)
+										     { 
+											    picList[z].style.left='650px'; moveElement('picLi_'+z,0,0,10);
+											 }
+                                         }
+
+  }
+}
+
+setInterval('autoBanner()', 5000);
+
+function autoBanner() 
+{
+  if(!$('ibanner')||!$('ibanner_pic')||!$('ibanner_btn')||autoKey) return;
+  var btnList = $('ibanner_btn').getElementsByTagName('span');
+  var picList = $('ibanner_pic').getElementsByTagName('a');
+  if (picList.length==1) return;
+  for(var i=0; i<btnList.length; i++) 
+  {
+    if (btnList[i].className == 'current')
+	 {
+       var currentNum = i;
+     }
+  }
+  if (currentNum==(picList.length-1) )
+  {
+    classNormal();
+    picZ();
+    btnList[0].className='current';
+    picList[currentNum].style.zIndex='2';
+    picList[0].style.zIndex='3';
+    picList[0].style.left='650px';
+    moveElement('picLi_0',0,0,10);
+  }  
+  else 
+  {
+    classNormal();//利用 btnList[i].className='normal';将button的class设置为normal
+    picZ();//利用picList[i].style.zIndex='1';将图片z-index设置为1，将其覆
+    var nextNum = currentNum+1;
+    btnList[nextNum].className='current';
+    picList[currentNum].style.zIndex='2';
+    picList[nextNum].style.zIndex='3';
+    picList[nextNum].style.left='650px';
+    moveElement('picLi_'+nextNum,0,0,10);
+  }
+
+}
+
+addLoadEvent(addBtn);
+addLoadEvent(iBanner);
+</script>
 </head>
 
+
 <body>
+<table width="1200px" border="0" cellspacing="0">
+<a class="f" href="http://www.baidu.com" target="_blank"><img src="img\baidu.png" alt="baidu" width="6.25%" height="80" title="百度"></a><a class="f" href="http://www.alibaba.com" target="_blank"><img  src="img\alibaba.png" alt="alibaba" width="6.25%" height="80" title="阿里巴巴"></a><a class="f" href="http://www.youku.com" target="_blank"><img  src="img\youku.png" alt="Youku" width="6.25%" height="80" title="优酷"></a><a class="f" href="http://www.sina.com" target="_blank"><img  src="img\sina.png" alt="sina" width="6.25%" height="80" title="新浪"></a><a class="f" href="http://www.dslrpark.com" target="_blank"><img src="img\dushiliren.png" alt="dushiliren" width="6.25%" height="80" title="都市丽人"></a><a class="f" href="http://www.huoji.tv" target="_blank"><img src="img\huojidao.png" alt="huojidao" width="6.25%" height="80" title="火鸡岛"></a><a class="f" href="http://toutiao.com" target="_blank"><img src="img\jinritoutiao.png" alt="jinritoutiao" width="6.25%" height="80" title="今日头条"></a>
+<a class="f" href="http://duomi.com" target="_blank"><img src="img\duomiyinyue.png" alt="duomi" width="6.25%" height="80" title="多米音乐"></a><a class="f" href="http://www.myzaker.com/index.html" target="_blank"><img src="img\zake.png" alt="zaker" width="6.25%" height="80" title="[扎克]传递价值资讯"></a><a class="f" href="https://www.ttpod.com" target="_blank"><img src="img\tiantiandongting.png" alt="tiantiandongting" width="6.25%" height="80" title="天天动听"></a><a class="f" href="http://www.jiemian.com" target="_blank"><img src="img\jiemian.png" alt="jiemian" width="6.25%" height="80" title="[界面新闻]只服务于独立思考的人群"></a><a class="f" href="http://www.fxauto.com.cn" target="_blank"><img src="img\dongfengfengxing.png" alt="fengxing" width="6.25%" height="80" title="[东风风行]风行天下驾驭未来"></a><a class="f" href="http://www.chexun.com" target="_blank"><img src="img\chexunwang.png" alt="chexun" width="6.25%" height="80" title="车讯网"></a><a class="f" href="http://www.huxiu.com" target="_blank"><img src="img\huxiu.png"  width="6.25%" height="80" title="[虎嗅网]"></a><a class="f" href="http://www.ghs.net/" target="_blank"><img src="img\huanqiugouwu.png"  width="6.25%" height="80" title="环球购物"></a>
+<br/><a class="f" href="http://www.acfun.tv" target="_blank"><img src="img\acfun.png"  width="6.25%" height="80" title="AcFun弹幕视频网"></a><a class="f" href="http://jr.jd.com" target="_blank"><img src="img\jingdongjinrong.png" width="6.25%" height="80" title="[京东金融]互联网理财综合服务平台!"></a><a class="f" href="http://www.miaopai.com/" target="_blank"><img src="img\miaopai.png"  width="6.25%" height="80" title="[秒拍]十秒拍大片"></a><a class="f" href="http://www.thepaper.cn/" target="_blank"><img src="img\pengpai.png"  width="6.25%" height="80" title="[澎湃新闻]专注时政与思想"></a><a class="f" href="http://www.zhihu.com" target="_blank"><img src="img\zhihu.png"  width="6.25%" height="80" title="[知乎]与世界分享你的知识、经验和见解"></a><a class="f" href="http://www.lesports.com" target="_blank"><img src="img\leshitiyu.png"  width="6.25%" height="80" title="[乐视体育]体验实时赛场"></a><a class="f" href="http://www.meizu.com" target="_blank"><img src="img\meizu.png"  width="6.25%" height="80" title="[魅族]因梦想而立"></a><a class="f" href="http://www.laifeng.com" target="_blank"><img src="img\laifeng.png"  width="6.25%" height="80" title="[来疯]中国互联网最火的视频直播平台"></a><a class="f" href="http://www.yidianzixun.com" target="_blank"><img src="img\yidianzixun.png"  width="6.25%" height="80" title="[一点资讯]移动互联网新一代内容分发平台"></a><a class="f" href="http://www.feidieshuo.com" target="_blank"><img src="img\feidieshuo.png"  width="6.25%" height="80" title="[飞碟说]知识从未如此性感"></a><a class="f" href="http://www.1243.com" target="_blank"><img src="img\sanfenweishi.png"  width="6.25%" height="80" title="[三分微视]视频制作和营销传播新媒体"></a><a class="f" href="http://www.kugou.com" target="_blank"><img src="img\kugouyinyue.png"  width="6.25%" height="80" title="[酷狗音乐]和音乐在一起"></a><a class="f" href="http://www.pengsi.cn" target="_blank"><img src="img\pengsier.png"  width="6.25%" height="80" title="[捧丝儿]明星养成型娱乐社交平台"></a><a class="f" href="https://www.julyedu.com/" target="_blank"><img src="img\qiyuezaixian.png"  width="6.25%" height="80" title="[七月在线]专注数据在线教育"></a><a class="f" href="http://changba.com" target="_blank"><img src="img\changba.png"  width="6.25%" height="80" title="[唱吧]最时尚的手机KTV"></a>
+<br/>
+<a class="f" href="http://www.umoer.com" target="_blank"><img src="img\umoer.png"  width="6.25%" height="80" title="[优模网]模特麻豆摄影交易平台"></a><a class="f" href="http://www.speiyou.com" target="_blank"><img src="img\xueersipeiyou.png"  width="6.25%" height="80" title="[学而思培优]中国领先的培优辅导品牌"></a><a class="f" href="https://www.juhe.cn/" target="_blank"><img src="img\juheshuju.png"  width="6.25%" height="80" title="[聚合数据]一家数据银行"></a><a class="f" href="https://www.ekuaibao.com" target="_blank"><img src="img\yikuaibao.png"  width="6.25%" height="80" title="[易快报]最敏捷的移动报销应用"></a><a class="f" href="https://www.ekuaibao.com" target="_blank"><img src="img\yikuaibao.png"  width="6.25%" height="80" title="[易快报]最敏捷的移动报销应用"></a><a class="f" href="https://www.ekuaibao.com" target="_blank"><img src="img\yikuaibao.png"  width="6.25%" height="80" title="[易快报]最敏捷的移动报销应用"></a><a class="f" href="https://www.ekuaibao.com" target="_blank"><img src="img\yikuaibao.png"  width="6.25%" height="80" title="[易快报]最敏捷的移动报销应用"></a><a class="f" href="https://www.ekuaibao.com" target="_blank"><img src="img\yikuaibao.png"  width="6.25%" height="80" title="[易快报]最敏捷的移动报销应用"></a><a class="f" href="https://www.ekuaibao.com" target="_blank"><img src="img\yikuaibao.png"  width="6.25%" height="80" title="[易快报]最敏捷的移动报销应用"></a><a class="f" href="https://www.ekuaibao.com" target="_blank"><img src="img\yikuaibao.png"  width="6.25%" height="80" title="[易快报]最敏捷的移动报销应用"></a><a class="f" href="https://www.ekuaibao.com" target="_blank"><img src="img\yikuaibao.png"  width="6.25%" height="80" title="[易快报]最敏捷的移动报销应用"></a><a class="f" href="http://www.oneplus.cn/" target="_blank"><img src="img\yijia.png"  width="6.25%" height="80" title="[一加手机]不将就"></a><a class="f" href="http://www.meipian.me" target="_blank"><img src="img\meipian.png"  width="6.25%" height="80" title="[美篇]最美图文创作分享工具"></a><a class="f" href="http://www.vivo.com.cn/" target="_blank"><img src="img\vivo.png"  width="6.25%" height="80" title="[Vivo智能手机]快无边界"></a><a class="f" href="http://www.91.com" target="_blank"><img src="img\91.png"  width="6.25%" height="80" title="[91.com]移动互联网第一平台_百度91门户"></a>
+<br/>
+<a class="f" href="http://www.mi.com" target="_blank"><img src="img\xiaomi.png"  width="6.25%" height="80" title="[小米]为发烧而生"></a><a class="f" href="http://www.jumei.com" target="_blank"><img src="img\jumeiyoupin.png"  width="6.25%" height="80" title="[聚美优品]化妆品时尚网上购物"></a><a class="f" href="http://www.vip.com" target="_blank"><img src="img\weipinhui.png"  width="6.25%" height="80" title="[唯品会]一家专门做特卖的网站"></a><a class="f" href="http://tv.sohu.com/" target="_blank"><img src="img\shouhushipin.png"  width="6.25%" height="80" title="[搜狐视频]正版高清视频在线"></a><a class="f" href="http://tv.sohu.com/" target="_blank"><img src="img\shouhushipin.png"  width="6.25%" height="80" title="[搜狐视频]正版高清视频在线"></a><a class="f" href="http://tv.sohu.com/" target="_blank"><img src="img\shouhushipin.png"  width="6.25%" height="80" title="[搜狐视频]正版高清视频在线"></a><a class="f" href="http://tv.sohu.com/" target="_blank"><img src="img\shouhushipin.png"  width="6.25%" height="80" title="[搜狐视频]正版高清视频在线"></a><a class="f" href="http://tv.sohu.com/" target="_blank"><img src="img\shouhushipin.png"  width="6.25%" height="80" title="[搜狐视频]正版高清视频在线"></a><a class="f" href="http://tv.sohu.com/" target="_blank"><img src="img\shouhushipin.png"  width="6.25%" height="80" title="[搜狐视频]正版高清视频在线"></a><a class="f" href="http://tv.sohu.com/" target="_blank"><img src="img\shouhushipin.png"  width="6.25%" height="80" title="[搜狐视频]正版高清视频在线"></a><a class="f" href="http://tv.sohu.com/" target="_blank"><img src="img\shouhushipin.png"  width="6.25%" height="80" title="[搜狐视频]正版高清视频在线"></a><a class="f" href="http://www.iqiyi.com/" target="_blank"><img src="img\aiqiyi.png"  width="6.25%" height="80" title="[爱奇艺]悦享品质"></a><a class="f" href="http://www.caixin.com/" target="_blank"><img src="img\caixinwang.png"  width="6.25%" height="80" title="[财新网]原创财经新媒体"></a><a class="f" href="http://www.yicai.com/" target="_blank"><img src="img\diyicaijing.png"  width="6.25%" height="80" title="[第一财经]只为更好决策"></a><a class="f" href="http://www.huawei.com" target="_blank"><img src="img\huawei.png"  width="6.25%" height="80" title="[华为]共建全连接新世界"></a>
+<br/><a class="f" href="http://www.nanfu.com" target="_blank"><img src="img\nanfu.png"  width="6.25%" height="80" title="[南孚]中国驰名品牌"></a><a class="f" href="https://mybank.cn" target="_blank"><img src="img\wangshangyinhang.png"  width="6.25%" height="80" title="[网商银行]无微不至"></a><a class="f" href="http://www.webank.com/" target="_blank"><img src="img\weizhongyinhang.png"  width="6.25%" height="80" title="[微众银行]腾讯牵头发起设立的银行"></a><a class="f" href="http://www.antgroup.com/" target="_blank"><img src="img\mayijinfu.png"  width="6.25%" height="80" title="[蚂蚁金服]服务小微企业和消费者"></a><a class="f" href="http://www.antgroup.com/" target="_blank"><img src="img\mayijinfu.png"  width="6.25%" height="80" title="[蚂蚁金服]服务
+小微企业和消费者"></a><a class="f" href="http://www.antgroup.com/" target="_blank"><img src="img\mayijinfu.png"  width="6.25%" height="80" title="[蚂蚁金服]服务
+小微企业和消费者"></a><a class="f" href="http://www.antgroup.com/" target="_blank"><img src="img\mayijinfu.png"  width="6.25%" height="80" title="[蚂蚁金服]服务
+小微企业和消费者"></a><a class="f" href="http://www.antgroup.com/" target="_blank"><img src="img\mayijinfu.png"  width="6.25%" height="80" title="[蚂蚁金服]服务
+小微企业和消费者"></a><a class="f" href="http://www.antgroup.com/" target="_blank"><img src="img\mayijinfu.png"  width="6.25%" height="80" title="[蚂蚁金服]服务
+小微企业和消费者"></a><a class="f" href="http://www.antgroup.com/" target="_blank"><img src="img\mayijinfu.png"  width="6.25%" height="80" title="[蚂蚁金服]服务
+小微企业和消费者"></a><a class="f" href="http://www.antgroup.com/" target="_blank"><img src="img\mayijinfu.png"  width="6.25%" height="80" title="[蚂蚁金服]服务
+小微企业和消费者"></a><a class="f" href="http://www.wanmen.org" target="_blank"><img src="img\wanmen.png"  width="6.25%" height="80" title="[万门大学]有你要的好课"></a><a class="f" href="http://www.ppdai.com/" target="_blank"><img src="img\paipaidai.png"  width="6.25%" height="80" title="[拍拍贷]网络借贷平台"></a><a class="f" href="http://www.dangdang.com/" target="_blank"><img src="img\ddw.png"  width="6.25%" height="80" title="[当当网]敢做敢当当"></a><a class="f" href="https://www.nuomi.com" target="_blank"><img src="img\nuomi.png"  width="6.25%" height="80" title="[糯米网]我的生活"></a>
+<br/>
+<a class="f" href="http://www.mogujie.com" target="_blank"><img src="img\mogujie.png"  width="6.25%" height="80" title="[蘑菇街]最大的女性电商社交平台"></a><a class="f" href="http://www.tmall.com" target="_blank"><img src="img\tmall.png"  width="6.25%" height="80" title="[天猫]上天猫 就够了"></a><a class="f" href="http://www.gome.com.cn" target="_blank"><img src="img\guomeizaixian.png"  width="6.25%" height="80" title="[国美在线]大型综合性购物平台"></a><a class="f" href="http://www.weibo.com" target="_blank"><img src="img\weibo.png"  width="6.25%" height="80" title="[新浪微博]随时随地发现新鲜事"></a><a class="f" href="http://www.yixun.com/" target="_blank"><img src="img\yixun.png"  width="6.25%" height="80" title="[易迅网]集约采购优势"></a><a class="f" href="http://www.coolpad.com" target="_blank"><img src="img\coolpad.png"  width="6.25%" height="80" title="[酷派]酷派领航4G为梦想提速"></a><a class="f" href="http://www.aigo.com/" target="_blank"><img src="img\aigo.png"  width="6.25%" height="80" title="[爱国者]自主科技自由生活"></a><a class="f" href="http://www.haohaizi.com" target="_blank"><img src="img\haohaizi.png"  width="6.25%" height="80" title="[好孩子]改善儿童生存环境，提高儿童生活品质"></a><a class="f" href="http://www.lldm.com/" target="_blank"><img src="img\leledongman.png"  width="6.25%" height="80" title="[乐乐动漫]好看的动漫,尽在乐乐动漫网"></a><a class="f" href="http://www.hujiang.com/" target="_blank"><img src="img\hujiang.png"  width="6.25%" height="80" title="[沪江]学习，成为更好的自己"></a><a class="f" href="http://www.zuche.com/" target="_blank"><img src="img\shenzhouzuche.png"  width="6.25%" height="80" title="[神州租车]推动绿色出行，引领中国汽车租赁行业发展"></a><a class="f" href="http://www.ctrip.com" target="_blank"><img src="img\xiecheng.png"  width="6.25%" height="80" title="[携程]携程在手说走就走"></a><a class="f" href="http://www.1905.com/" target="_blank"><img src="img\1905.png"  width="6.25%" height="80" title="[1905电影网]电影专业门户网站"></a><a class="f" href="http://www.xiguayingyin.cn/" target="_blank"><img src="img\xigua.png"  width="6.25%" height="80" title="[西瓜影音]全网电影电视一键搜索"></a><a class="f" href="http://www.tuling123.com/" target="_blank"><img src="img\tuling.png"  width="6.25%" height="80" title="[图灵机器人]中文语境下智能度最高的机器人大脑"></a>
+<br/>
+<a class="f" href="http://www.dfdaily.com/" target="_blank"><img src="img\dfzb.png"  width="6.25%" height="80" title="[东方早报]影响力至上"></a>
+<a class="f" href="http://www.chengt.com/" target="_blank"><img src="img\ctyl.png"  width="6.25%" height="80" title="[橙天娱乐]全球影响力的华语电影娱乐集团"></a>
+<a class="f" href="http://www.lagou.com" target="_blank"><img src="img\lagou.png"  width="6.25%" height="80" title="[拉勾网]最专业的互联网招聘平台"></a>
+<a class="f" href="http://www.pingwest.com/" target="_blank"><img src="img\pingwan.png"  width="6.25%" height="80" title="[品玩]有品好玩的科技"></a>
+<a class="f" href="http://www.neitui.me/" target="_blank"><img src="img\neitui.png"  width="6.25%" height="80" title="[内推网]互联网招聘内部推荐直招平台"></a>
+<a class="f" href="http://www.hisense.com/" target="_blank"><img src="img\haixin.png"  width="6.25%" height="80" title="[海信]创新就是生活"></a>
+<a class="f" href="www.skyworth.com" target="_blank"><img src="img\chuangwei.png"  width="6.25%" height="80" title="[创维]专注健康科技"></a>
+<a class="f" href="http://www.ximalaya.com" target="_blank"><img src="img\ximalaya.png"  width="6.25%" height="80" title="[喜马拉雅]听我想听"></a>
+<a class="f" href="http://www.orangehotel.com.cn/" target="_blank"><img src="img\juzi.png"  width="6.25%" height="80" title="[桔子酒店]"></a>
+<a class="f" href="http://www.10jqka.com.cn/" target="_blank"><img src="img\tonghuashun.png"  width="6.25%" height="80" title="[同花顺]让投资变得更简单"></a>
+<a class="f" href="http://www.eastmoney.com/" target="_blank"><img src="img\dongfcf.png"  width="6.25%" height="80" title="[东方财富网]中国财经第一门户"></a>
+<a class="f" href="www.itouzi.com/ " target="_blank"><img src="img\aitouzi.png"  width="6.25%" height="80" title="[爱投资]让您爱上投资"></a>
+<a class="f" href="http://www.hexun.com/" target="_blank"><img src="img\hexun.png"  width="6.25%" height="80" title="[和讯]中国财经网络领袖"></a>
+<a class="f" href="http://www.vobao.com/" target="_blank"><img src="img\wobao.png"  width="6.25%" height="80" title="[沃保网]中国最大的保险门户网站"></a>
+<a class="f" href="http://36kr.com/" target="_blank"><img src="img\36ke.png"  width="6.25%" height="80" title="[36氪]为创业者提供最好的产品和服务"></a>
 
-  <div class="wrapper">
-    <header>
-      <h1 class="title">大脑洞</h1>
-    </header>
-    <div id="container">
-      <p class="tagline">脑洞，大开</p>
-      <div id="main" role="main">
-        <div class="download-bar">
-        <div class="inner">
-          <a href="https://github.com/wangjinlong9788" class="code">快来看啊，刚出炉的脑洞大拍卖啦</a>
-        </div>
-        <span class="blc"></span><span class="trc"></span>
-        </div>
-        <article class="markdown-body">
-          <h3>从前有个人叫小明，小明没听见</h3>
-          <p>啊，我编不下去了，小明：老师！如果两只小鸟在两根电线上接吻会不会触电呢？
-          老师：不会，因为鸟的喙是角质层不导电！小明：那如果小鸟伸舌头呢？老师：你给我出去</p>
-          <p>还是听歌吧。。。。。</p>
-<video width="800" controls>
-  <source src="mov_bbb.mp4" type="video/mp4">
-  <source src="mov_bbb.ogg" type="video/ogg">
-  Your browser does not support HTML5 video.
-</video>
 
 
-<p>Bring Me The Night </p>
 
+
+
+<div id="ibanner">
+<div id="ibanner_pic"> 
+<a class="slide" href="#"><img src="img\1.jpg" alt="1" width="605" height="250"/></a>
+<a class="slide" href="#"><img src="img\02.jpg" alt="2" width="605" height="250"/></a>
+<a class="slide" href="#"><img src="img\03.jpg" alt="3" width="605" height="250"/></a>
+<a class="slide" href="#"><img src="img\04.jpg" alt="4" width="605" height="250" /></a>
+</div>
+</div><!--ibanner end-->
+<!--<div style="position:relative; top:1px;left:300px;width:650px;height:20px; background:#EEE;"></div>-->
+</table>
 
   
+ <div id="footer" style="position:relative; top:1px;left:0px;width:1266px;height:40px; background:#EEE;">
+                                         <div style=" width:1266px;position:relative;left:510px;>   <a href=" " target="_blank">关于我们</a> | <a href=""  target="_blank">网站声明</a> | <a href=""  target="_blank">服务条款</a> | <a href=""  target="_blank">联系方式</a> | <a href="">RSS</a> 
+			  &nbsp;京公网安备<br>Copyright @ 2016 中国品牌聚合网 All Rights Reserved<br>
+<span style="display:none">
+</span> 
+</div>
+
+</div>
+
+
 </body>
 </html>
+ 
