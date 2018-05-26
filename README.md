@@ -1,6 +1,4 @@
-# wangjinlong9788.github.io
-
-Multiple Brands Ads in one page
+# Multiple Brands Ads in one page
 
 
-Open wangjinlong9788.github.io in browzer
+Open http://wangjinlong9788.github.io/Brands-Ads-in-one-page in the browzer
